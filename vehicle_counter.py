@@ -12,10 +12,13 @@ while(cap.isOpened()):
     ret, frame = cap.read()
     # apply bgsub
     fgmask = bgsub.apply(frame)
+    # apply binary trheshold
+    _, binFrame = cv2.threshold(fgmask, 200, 225, cv2.THRESH_BINARY)
 
     # tampilkan video perframe
     cv2.imshow("frame", frame)
     cv2.imshow("mask", fgmask)
+    cv2.imshow("binary masked", binFrame)
 
     # untuk keluar menggunakan esc
     k = cv2.waitKey(30) & 0xff
