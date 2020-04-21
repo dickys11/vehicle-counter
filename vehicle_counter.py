@@ -3,10 +3,10 @@ import imutils
 import numpy as np
 
 
-cap = cv2.VideoCapture('media/highway.mp4')
+cap = cv2.VideoCapture('media/video.mp4')
 fgbg = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
-kernel_open = np.ones((7, 7), np.uint8)
-kernel_close = np.ones((15, 15), np.uint8)
+kernel_open = np.ones((11, 11), np.uint8)
+kernel_close = np.ones((25, 25), np.uint8)
 
 while(cap.isOpened()):
     _, frame = cap.read()
