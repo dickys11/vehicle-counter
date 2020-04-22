@@ -21,7 +21,7 @@ def getContours(img, imgContour):
             cv2.drawContours(imgContour, cnt, -1, (255, 0, 255), 7)
             peri = cv2.arcLength(cnt, True)
             approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
-            print(len(approx))
+            # print(len(approx))
             x, y, w, h = cv2.boundingRect(approx)
             cv2.rectangle(imgContour, (x, y), (x + w, y + h), (0, 255, 0), 5)
 
@@ -32,7 +32,7 @@ def getContours(img, imgContour):
 
 
 # pilih sumber video
-cap = cv2.VideoCapture('source.mp4')
+cap = cv2.VideoCapture('media/source.mp4')
 bgsub = cv2.createBackgroundSubtractorMOG2(detectShadows=False)
 kernelOp = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 kernelCl = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
@@ -61,11 +61,11 @@ while(cap.isOpened()):
     # apply dilate
     dilation = cv2.dilate(opening, kernelOp, iterations=2)
 
-    contours = getContours(dilation, imgContour)
+    getContours(dilation, imgContour)
 
     # tampilkan video perframe
     cv2.imshow("frame", frame)
-    # cv2.imshow("final", contours)
+    cv2.imshow("final", imgContour)
 
     # untuk keluar menggunakan esc
     k = cv2.waitKey(30) & 0xff
