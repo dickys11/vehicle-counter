@@ -1,6 +1,5 @@
 .pylintrc
 .vscode/settings.json
-vehicle.py
 ObjectDetection.py
 media/Highway.mp4
 media/source.mp4
