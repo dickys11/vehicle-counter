@@ -47,7 +47,7 @@ def applyFilter(frame):
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernelOpening)
 
     # apply dilate
-    dilation = cv2.dilate(mask, kernelClosing, iterations=1)
+    # dilation = cv2.dilate(mask, kernelClosing, iterations=1)
 
     return mask
 
@@ -74,8 +74,10 @@ def count(mask, frame):
                         i.updateCoords(cx, cy)
                         if i.going_UP(lineDown, lineUp) == True:
                             counterUp += 1
+                            print(f'up: {str(counterUp)}')
                         elif i.going_DOWN(lineDown, lineUp) == True:
                             counterDown += 1
+                            print(f'down: {str(counterDown)}')
                         break
                     if i.getState() == '1':
                         if i.getDir() == 'down' and i.getY() > downLimit:
@@ -101,7 +103,7 @@ cap = cv2.VideoCapture('media/source.mp4')
 w = int(cap.get(3))
 h = int(cap.get(4))
 areaTH = (w*h)/750
-bgsub = cv2.createBackgroundSubtractorKNN()
+bgsub = cv2.createBackgroundSubtractorKNN(detectShadows=False)
 
 
 cv2.namedWindow('Main')
@@ -158,9 +160,11 @@ while cap.isOpened():
                  (w, downLimit), (255, 255, 255), 2)
 
     cv2.imshow('Main', frame)
+    cv2.imshow('Filtered', mask)
 
     if cv2.waitKey(25) & 0xFF == ord('q'):
         break
+
 
 cap.release()
 cv2.destroyAllWindows()
